@@ -14,7 +14,11 @@ qa('[data-download]').forEach(b=>b.addEventListener('click',()=>download(b.datas
 qa('[data-report]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.report;try{if(getReport(id).mime!=='application/pdf'){download(id);return;}window.open(makeURL(id)+'#page='+(b.dataset.page||1),'_blank','noopener');}catch(e){toast('暂时无法打开报告，请刷新页面后重试。');}}));
 
 const filters=qa('.filter'),cards=qa('.index-card'),search=q('#project-search');
-const searchText=new Map(projects.map(p=>[p.id,(p.textContent+' '+p.id).toLowerCase()]));
+const searchText=new Map(projects.map(p=>{
+ const content=p.cloneNode(true);
+ qa('.project-pager',content).forEach(nav=>nav.remove());
+ return [p.id,(content.textContent+' '+p.id).toLowerCase()];
+}));
 let selectedFilter='all';
 function filterProjects(){
  const words=search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);let count=0;
