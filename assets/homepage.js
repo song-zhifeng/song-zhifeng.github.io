@@ -30,6 +30,11 @@
     document.querySelectorAll('[data-label-en]').forEach(element => {
       element.setAttribute('aria-label', lang === 'en' ? element.dataset.labelEn : element.dataset.labelZh);
     });
+    document.querySelectorAll('a[href^="portfolio.html"]').forEach(link => {
+      const url = new URL(link.getAttribute('href'), document.baseURI);
+      url.searchParams.set('lang', lang === 'en' ? 'en' : 'zh');
+      link.href = 'portfolio.html' + url.search + url.hash;
+    });
     try { localStorage.setItem(key, lang); } catch (_) {}
     if (updateURL) {
       const url = new URL(location.href);
@@ -46,7 +51,7 @@
   // Keep links from the earlier portfolio and submitted applications working.
   const oldCaseIDs = ['assembly','quality','beverage','dfm','design','capstone','lca','kfc','toyota','reports'];
   if (oldCaseIDs.includes(location.hash.slice(1))) {
-    location.replace(new URL('portfolio.html' + location.hash, document.baseURI).href);
+    location.replace(new URL('portfolio.html?lang=' + (selectedLanguage() === 'en' ? 'en' : 'zh') + location.hash, document.baseURI).href);
   } else {
     const aliases = { directory: 'projects', overview: 'top', profile: 'experience' };
     const alias = aliases[location.hash.slice(1)];
