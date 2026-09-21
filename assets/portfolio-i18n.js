@@ -37,7 +37,7 @@
     const query = new URLSearchParams(location.search).get('lang');
     if (query === 'en') return 'en';
     if (query === 'zh' || query === 'zh-CN') return 'zh-CN';
-    try { if (localStorage.getItem(key) === 'en') return 'en'; } catch (_) {}
+    if(document.documentElement.dataset.defaultLanguage)return document.documentElement.dataset.defaultLanguage;try { if (localStorage.getItem(key) === 'en') return 'en'; } catch (_) {}
     return 'zh-CN';
   }
   function setLanguage(language, updateURL = false, announce = false) {
@@ -50,7 +50,7 @@
     document.querySelectorAll('a[data-home-link]').forEach(link => {
       const url = new URL(link.getAttribute('href'), document.baseURI);
       url.searchParams.set('lang', english ? 'en' : 'zh');
-      link.href = url.pathname.split('/').pop() + url.search + url.hash;
+      link.href = url.href;
     });
     try { localStorage.setItem(key, lang); } catch (_) {}
     if (updateURL) {
