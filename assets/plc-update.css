@@ -10,7 +10,7 @@ body{font-family:PortfolioSans,PLCChinese,Arial,sans-serif}
 @font-face{font-family:ExportSans;src:url(fonts/export-bold.ttf) format("truetype");font-weight:700}
 @media print{.skip{display:none!important}#profile,#reports{break-before:page}html[lang="en"] body{font-family:ExportSans,PLCChinese,sans-serif}html[lang="en"] .project-lead{font-size:10pt;line-height:1.65}html[lang="en"] .role,html[lang="en"] .project-output{font-size:8.8pt;line-height:1.65}html[lang="en"] .text-block p,html[lang="en"] .deep-steps .text-block p{font-size:9.7pt;line-height:1.65}html[lang="en"] .deep-heading>p{font-size:9.7pt;line-height:1.65}html[lang="en"] .metric-strip strong{font-size:17pt}}
 
-/* Actual uploaded project evidence, added 21 Sep 2026. */
+/* Equipment and control-program evidence. */
 .plc-evidence-page{margin-top:38px;border-top:1px solid var(--line);padding-top:28px}
 .plc-evidence-gallery{display:grid;grid-template-columns:minmax(240px,.8fr) minmax(0,1.6fr);gap:24px;align-items:start;margin:24px 0}
 .plc-evidence-figure{margin:0;min-width:0}.plc-evidence-label{font-size:11px;font-weight:700;letter-spacing:1.4px;color:#37607d;margin:0 0 10px}
@@ -21,3 +21,21 @@ body{font-family:PortfolioSans,PLCChinese,Arial,sans-serif}
 .plc-evidence-thumb{background:#eef3f7;display:flex;justify-content:center;align-items:center}.plc-evidence-thumb img{width:100%;height:100%;object-fit:contain!important;object-position:center}
 @media(max-width:900px){.plc-evidence-gallery{grid-template-columns:1fr;gap:26px}.plc-evidence-figure .image-button img{height:auto;max-height:520px}.plc-equipment .image-button img{width:auto;max-width:100%}.plc-blockly .image-button img{width:100%}}
 @media print{.plc-evidence-page{break-before:page;margin:0;border:0;padding:0}.plc-evidence-gallery{grid-template-columns:60mm minmax(0,1fr);gap:5mm;margin:5mm 0}.plc-evidence-figure .image-button{padding:2mm}.plc-evidence-figure .image-button img{width:100%;height:96mm;max-height:none;object-fit:contain}.plc-evidence-figure figcaption{font-size:8pt;margin-top:3mm}.plc-fullsize-link{font-size:8pt}.plc-evidence-label{font-size:7pt;margin-bottom:2mm}}
+
+/* Keep the complete case readable across three printed pages. */
+@media print {
+  :focus { outline: none !important; }
+  html[lang="en"] .plc-project .scope { grid-template-columns: 30mm 1fr; }
+  #profile .skill-map { break-before: page; }
+  html[lang="en"] .plc-project .plc-page:first-child .project-lead { margin-bottom: 3mm; font-size: 9.5pt; line-height: 1.55; }
+  html[lang="en"] .plc-project .plc-page:first-child .project-meta { margin: 3mm 0; }
+  html[lang="en"] .plc-project .plc-page:first-child .project-brief { margin: 3mm 0; }
+  html[lang="en"] .plc-project .plc-page:first-child .role,
+  html[lang="en"] .plc-project .plc-page:first-child .project-output { padding: 3mm; }
+  html[lang="en"] .plc-project .plc-page:first-child .project-brief p { font-size: 8.5pt; line-height: 1.5; }
+  html[lang="en"] .plc-project .plc-page:first-child .metric-strip { margin: 3mm 0; padding: 2.5mm 0; }
+  html[lang="en"] .plc-project .plc-page:first-child .plc-stages { margin: 3mm 0; }
+  html[lang="en"] .plc-project .plc-page:first-child .plc-stages > div { padding: 3mm; }
+  html[lang="en"] .plc-project .plc-page:first-child .plc-stages p { font-size: 8.7pt; line-height: 1.45; }
+  html[lang="en"] .plc-project .plc-page:first-child table { line-height: 1.5; }
+}

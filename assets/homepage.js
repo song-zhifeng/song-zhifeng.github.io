@@ -49,7 +49,7 @@
   window.addEventListener('popstate', () => setLanguage(selectedLanguage()));
   setLanguage(selectedLanguage());
   // Keep links from the earlier portfolio and submitted applications working.
-  const oldCaseIDs = ['assembly','quality','beverage','dfm','design','capstone','lca','kfc','toyota','reports'];
+  const oldCaseIDs = ['assembly','quality','beverage','dfm','design','capstone','lca','kfc','toyota','plc','reports'];
   if (oldCaseIDs.includes(location.hash.slice(1))) {
     location.replace(new URL('portfolio.html?lang=' + (selectedLanguage() === 'en' ? 'en' : 'zh') + location.hash, document.baseURI).href);
   } else {

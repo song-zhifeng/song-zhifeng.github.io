@@ -39,7 +39,9 @@ toggle.addEventListener('click',()=>{const ds=relevantDetails(),open=!ds.every(d
 details.forEach(d=>d.addEventListener('toggle',setToggleLabel));
 function updateProgress(){const span=document.documentElement.scrollHeight-window.innerHeight;progress.style.transform='scaleX('+(span>0?Math.min(1,Math.max(0,window.scrollY/span)):0)+')';scrollTick=false;}
 function showView(id,navigate=false){
- const target=viewMap.get(id)||viewMap.get('overview');currentId=target.id;
+ const anchor=document.getElementById(id);
+ const target=viewMap.get(id)||(anchor&&anchor.closest('main>section[id],main>article[id]'))||viewMap.get('overview');currentId=target.id;
+ const scrollTarget=anchor&&target.contains(anchor)?anchor:target;
  document.body.classList.toggle('focus-mode',focusMode);
  views.forEach(v=>v.classList.toggle('focus-hidden',focusMode&&!(v===target||(currentId==='overview'&&v.id==='directory'))));
  mode.textContent=focusMode?t('连续阅读','Continuous reading'):t('逐个项目阅读','Read one project at a time');mode.setAttribute('aria-pressed',String(focusMode));
@@ -47,7 +49,7 @@ function showView(id,navigate=false){
  if(!context.hidden)contextName.textContent=q('.project-number',target).textContent+' / '+q('h2',target).textContent;
  navLinks.forEach(a=>{const active=a.hash==='#'+currentId;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
  setToggleLabel();
- if(navigate)requestAnimationFrame(()=>{const heading=q('h2,h1',target);if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}if(currentId==='overview')window.scrollTo({top:0,behavior:'auto'});else target.scrollIntoView({block:'start',behavior:'auto'});updateProgress();});
+ if(navigate)requestAnimationFrame(()=>{const heading=q('h2,h1,h3',scrollTarget);if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}if(currentId==='overview')window.scrollTo({top:0,behavior:'auto'});else scrollTarget.scrollIntoView({block:'start',behavior:'auto'});updateProgress();});
  else requestAnimationFrame(updateProgress);
 }
 mode.addEventListener('click',()=>{focusMode=!focusMode;showView(currentId,true);});
